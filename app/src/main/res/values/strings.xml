@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="NumTel"></string>
+    <string name="pass"></string>
+</resources>
