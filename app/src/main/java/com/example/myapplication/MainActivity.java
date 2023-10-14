@@ -34,37 +34,9 @@ public class MainActivity extends AppCompatActivity {
             // Inicializa los EditText
             numTel = findViewById(R.id.NumTel);
             pass = findViewById(R.id.pass);
-
-            new DatabaseTask().execute();
         }
 
 
-    private class DatabaseTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... voids) {
-            SQLConnection sqlConnection = new SQLConnection();
-            Connection connection = sqlConnection.connect();
-            if (connection != null) {
-                try {
-                    // Realiza operaciones en la base de datos aquí
-                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Contraseñas_Users");
-                    ResultSet resultSet = preparedStatement.executeQuery();
-
-                    while (resultSet.next()) {
-                        // Procesa los resultados
-                        String data = resultSet.getString("Email");
-                        // Haz algo con los datos
-                    }
-
-                    // Cierra la conexión
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            return null;
-        }
-    }
     public void MenuPrincipal(View view) {
         String numTelFinal = "6682417874";
         String passFinal = "erick";
@@ -87,20 +59,4 @@ public class MainActivity extends AppCompatActivity {
             startActivity(btnRegistrarse);
 
         }
-
-    public class SQLConnection {
-        private static final String URL = "jdbc:sqlserver://ERICKPC:1433;databaseName=Android";
-        private static final String USER = "sa";
-        private static final String PASSWORD = "admin";
-
-        public Connection connect() {
-            try {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                return DriverManager.getConnection(URL, USER, PASSWORD);
-            } catch (ClassNotFoundException | SQLException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-    }
 }
