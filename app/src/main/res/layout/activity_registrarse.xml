@@ -84,7 +84,7 @@
         app:layout_constraintVertical_bias="0.352" />
 
     <EditText
-        android:id="@+id/editTextPhone"
+        android:id="@+id/txtTelefono"
         android:layout_width="128dp"
         android:layout_height="56dp"
         android:background="#FFFFFF"
@@ -100,7 +100,7 @@
         app:layout_constraintVertical_bias="0.441" />
 
     <EditText
-        android:id="@+id/editTextDate"
+        android:id="@+id/txtFecha"
         android:layout_width="137dp"
         android:layout_height="54dp"
         android:background="#FFFFFF"
@@ -116,7 +116,7 @@
         app:layout_constraintVertical_bias="0.443" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/txtContrasenia"
         android:layout_width="296dp"
         android:layout_height="44dp"
         android:background="#FFFFFF"
@@ -144,7 +144,7 @@
         app:layout_constraintVertical_bias="0.774" />
 
     <Button
-        android:id="@+id/Registrarse"
+        android:id="@+id/btnRegistrarse2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="MainActivity"

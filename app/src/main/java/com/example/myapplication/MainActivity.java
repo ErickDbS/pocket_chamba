@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.xml.namespace.NamespaceContext;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
             numTel = findViewById(R.id.NumTel);
             pass = findViewById(R.id.pass);
         }
+
 
 
     public void MenuPrincipal(View view) {
@@ -55,8 +59,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void Registrarse(View view) {
+
             Intent btnRegistrarse = new Intent(this, Registrarse.class);
             startActivity(btnRegistrarse);
 
+
         }
+
 }
