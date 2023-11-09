@@ -76,7 +76,7 @@ public class Registrarse extends AppCompatActivity {
             StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
             Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
-            SQL= DriverManager.getConnection("jdbc:jtds:sqlserver://172.20.10.4;databaseName=Android;user=sa;password=admin;");
+            SQL= DriverManager.getConnection("jdbc:jtds:sqlserver://192.168.0.25;databaseName=Android;user=sa;password=admin;");
         } catch (Exception e){
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
