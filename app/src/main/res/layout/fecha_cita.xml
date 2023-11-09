@@ -3,13 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#9B16E3">
 
     <TextView
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="txtDia"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.127"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="txtMes"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="147dp"
@@ -30,10 +33,13 @@
         android:id="@+id/textView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="txtTituloFecha"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.062"
+        app:layout_constraintHorizontal_bias="0.097"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Proponer fecha de la cita" />
@@ -44,6 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
         android:text="txtIngresar"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,8 +62,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="txtAno"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.878"
+        app:layout_constraintHorizontal_bias="0.86"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="147dp"
         tools:text="Año" />
@@ -66,6 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="txtBarra"
+        android:textColor="@color/white"
         tools:layout_editor_absoluteX="118dp"
         tools:layout_editor_absoluteY="147dp"
         tools:text="/" />
@@ -75,6 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="txtBarra"
+        android:textColor="@color/white"
         tools:layout_editor_absoluteX="278dp"
         tools:layout_editor_absoluteY="147dp"
         tools:text="/" />
@@ -96,4 +106,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="342dp" />
+
+    <EditText
+        android:id="@+id/txtDia"
+        android:layout_width="63dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintTop_toBottomOf="@+id/textView22"
+        tools:layout_editor_absoluteX="29dp" />
+
+    <EditText
+        android:id="@+id/txtMes"
+        android:layout_width="63dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintTop_toBottomOf="@+id/textView23"
+        tools:layout_editor_absoluteX="174dp" />
+
+    <EditText
+        android:id="@+id/txtAno"
+        android:layout_width="63dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="32dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintTop_toBottomOf="@+id/textView21"
+        tools:layout_editor_absoluteX="313dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
