@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#9B16E3">
+
+    <TextView
+        android:id="@+id/txtAnadir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="txtAnadir"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Añadir método de pago" />
+
+    <TextView
+        android:id="@+id/txtMetodo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="txtMetodo"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.449"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="131dp"
+        tools:text="Tarjeta de crédito/débito" />
+
+    <ImageView
+        android:id="@+id/imgTarjeta"
+        android:layout_width="75dp"
+        android:layout_height="56dp"
+        app:srcCompat="@drawable/tarjeta_dibujo"
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="114dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
