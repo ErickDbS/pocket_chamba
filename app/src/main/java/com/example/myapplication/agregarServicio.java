@@ -52,6 +52,7 @@ public class agregarServicio extends AppCompatActivity {
              public void onClick(View view) {
                  profecion = (String) spinner.getSelectedItem();
                  newService();
+                 Regresar(view);
              }
          });
     }
@@ -59,6 +60,7 @@ public class agregarServicio extends AppCompatActivity {
     public void Regresar(View view){
         Intent btnRegresar = new Intent(this, MenuPrincipal.class);
         startActivity(btnRegresar);
+        finish();
     }
 
     // Singleton que crea una instncia unica a la BD
