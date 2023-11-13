@@ -4,41 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9B16E3">
+    android:background="#9B16E3"
+    tools:context=".metodoDePago">
 
     <TextView
-        android:id="@+id/txtAnadir"
+        android:id="@+id/txtAnadir2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:text="txtAnadir"
+        android:text="Añadir método de pago"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.14"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Añadir método de pago" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtMetodo"
+        android:id="@+id/txtMetodo2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="txtMetodo"
+        android:text="Tarjeta de crédito/débito"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.449"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="131dp"
-        tools:text="Tarjeta de crédito/débito" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.23" />
 
     <ImageView
-        android:id="@+id/imgTarjeta"
+        android:id="@+id/imgTarjeta2"
         android:layout_width="75dp"
         android:layout_height="56dp"
-        app:srcCompat="@drawable/tarjeta_dibujo"
-        tools:layout_editor_absoluteX="28dp"
-        tools:layout_editor_absoluteY="114dp" />
-
+        android:layout_marginTop="144dp"
+        android:onClick="newCard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.083"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/tarjeta_dibujo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

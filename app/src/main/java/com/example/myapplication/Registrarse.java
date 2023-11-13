@@ -70,25 +70,16 @@ public class Registrarse extends AppCompatActivity {
         finish();
     }
 
-    public Connection conSQL(){
-        Connection SQL = null;
-        try {
-            StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
-            SQL= DriverManager.getConnection("jdbc:jtds:sqlserver://192.168.0.25;databaseName=Android;user=sa;password=admin;");
-        } catch (Exception e){
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-        return SQL;
-    }
 
+    // Singleton que crea una instncia unica a la BD
 
+    ConexionBD conexionBD = ConexionBD.getInstancia();
+    Connection conexion = conexionBD.getConexion();
 
 
     public void agregarUsuario(){
         try {
-            PreparedStatement pat = conSQL().prepareStatement("INSERT INTO Registros VALUES (?,?,?,?,?,?)");
+            PreparedStatement pat = conexion.prepareStatement("INSERT INTO Registros VALUES (?,?,?,?,?,?)");
             pat.setString(1,Nombre.getText().toString());
             pat.setString(2,Apellido.getText().toString());
             pat.setString(3,Email.getText().toString());

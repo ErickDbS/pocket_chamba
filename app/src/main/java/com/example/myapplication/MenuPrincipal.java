@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -13,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 
 import com.google.android.material.navigation.NavigationView;
@@ -49,6 +51,16 @@ public class MenuPrincipal extends AppCompatActivity {
     public void nuevoServicio(View view){
         Intent btnAgregarServicio = new Intent(this, agregarServicio.class);
         startActivity(btnAgregarServicio);
+    }
+
+    public void perfil(View view){
+        Intent intent = getIntent();
+        String textoRecibido = intent.getStringExtra("key");
+
+        // Se recupera el valor enviado desde el main y se vuelve a mandar al activity de perfil para ser mostrado
+        Intent btnPerfil = new Intent(this, perfil.class);
+        btnPerfil.putExtra("key", textoRecibido);
+        startActivity(btnPerfil);
     }
 }
 

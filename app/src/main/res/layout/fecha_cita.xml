@@ -95,17 +95,9 @@
         android:layout_height="80dp"
         android:text="Enviar Propuesta"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="585dp" />
-
-    <Button
-        android:id="@+id/btnContactar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Contactar al servidor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="342dp" />
+        tools:layout_editor_absoluteY="325dp" />
 
     <EditText
         android:id="@+id/txtDia"

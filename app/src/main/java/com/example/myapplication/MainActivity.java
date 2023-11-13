@@ -1,33 +1,25 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.AsyncTask;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import java.sql.PreparedStatement;
 
 
-import com.microsoft.sqlserver.jdbc.SQLServerConnection;
-
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-
-import javax.xml.namespace.NamespaceContext;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText numTel;
     private EditText pass;
+    public String UserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +39,14 @@ public class MainActivity extends AppCompatActivity {
         if (iniciarSesion(nombreUsuario, contrasenia)) {
             // Inicio de sesión exitoso, redirige al usuario a la pantalla principal
             // Puedes usar Intents para realizar esta redirección.
+            String UserName = obtenerNombreDeUsuario(nombreUsuario);
+
+
+
             Intent btnIniciarSesion = new Intent(this, MenuPrincipal.class);
+
+            // Se recupera el nombre del usuario que inicio sesion y se manda al activity MenuPrincipal
+            btnIniciarSesion.putExtra("key", UserName);
             startActivity(btnIniciarSesion);
         } else {
             // Credenciales incorrectas, muestra un mensaje de error
@@ -62,27 +61,21 @@ public class MainActivity extends AppCompatActivity {
         startActivity(btnRegistrarse);
     }
 
+    // Singleton que crea una instncia unica a la BD
+    ConexionBD conexionBD = ConexionBD.getInstancia();
+    Connection conexion = conexionBD.getConexion();
 
-    public Connection conSQL(){
-        Connection SQL = null;
-        try {
-            StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
-            SQL= DriverManager.getConnection("jdbc:jtds:sqlserver://192.168.0.25;databaseName=Android;user=sa;password=admin;");
-        } catch (Exception e){
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-        return SQL;
-    }
+
+
 
     public boolean iniciarSesion(String telefono, String contrasenia) {
         try {
             // Preparar una consulta para verificar las credenciales
             String consulta = "SELECT * FROM Registros WHERE Telefono = ? AND contraseña = ?";
-            PreparedStatement pat = conSQL().prepareStatement(consulta);
+            PreparedStatement pat = conexion.prepareStatement(consulta);
             pat.setString(1, telefono);
             pat.setString(2, contrasenia);
+
 
             ResultSet rs = pat.executeQuery();
 
@@ -95,6 +88,27 @@ public class MainActivity extends AppCompatActivity {
         } catch (SQLException e) {
             e.printStackTrace();
             return false; // Manejar excepciones adecuadamente
+        }
+    }
+
+    private String obtenerNombreDeUsuario(String telefono) {
+        try {
+            // Preparar una consulta para obtener el nombre de usuario
+            String consulta = "SELECT Nombre FROM Registros WHERE Telefono = ?";
+            PreparedStatement pat = conexion.prepareStatement(consulta);
+            pat.setString(1, telefono);
+
+            ResultSet rs = pat.executeQuery();
+
+            // Si se encuentra una fila, devuelve el nombre de usuario
+            if (rs.next()) {
+                return rs.getString("Nombre");
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

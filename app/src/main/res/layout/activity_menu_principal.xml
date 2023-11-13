@@ -5,7 +5,7 @@
     android:id="@+id/lyCoordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#9B16E3"
     android:onClick="agregarServicio"
     tools:context=".MenuPrincipal">
 
@@ -18,6 +18,9 @@
             android:id="@+id/btnUser"
             android:layout_width="55dp"
             android:layout_height="46dp"
+            android:background="#9B16E3"
+            android:backgroundTint="#9B16E3"
+            android:onClick="perfil"
             android:src="@drawable/icono_usuario"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,9 +50,10 @@
 
         <ImageButton
             android:id="@+id/btnAgregarServicio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="56dp"
+            android:layout_height="52dp"
             android:layout_marginTop="16dp"
+            android:background="#9B16E3"
             android:onClick="nuevoServicio"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.926"
