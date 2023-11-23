@@ -59,11 +59,11 @@
 
                 <ImageView
                     android:id="@+id/imgCarpinteria"
-                    android:layout_width="wrap_content"
+                    android:layout_width="129dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginRight="10dp"
-                    android:src="@tools:sample/avatars" />
+                    app:srcCompat="@drawable/carpinteria" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -100,11 +100,11 @@
 
                 <ImageView
                     android:id="@+id/imgPlomeria"
-                    android:layout_width="wrap_content"
+                    android:layout_width="129dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="10dp"
-                    android:src="@tools:sample/avatars" />
+                    app:srcCompat="@drawable/plomeria" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -140,11 +140,11 @@
 
                 <ImageView
                     android:id="@+id/imgPintura"
-                    android:layout_width="wrap_content"
+                    android:layout_width="129dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:layout_marginRight="10dp"
-                    android:src="@tools:sample/avatars" />
+                    app:srcCompat="@drawable/pintura" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
