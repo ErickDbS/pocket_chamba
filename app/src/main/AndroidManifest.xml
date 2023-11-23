@@ -15,6 +15,9 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".carpinteria_luna"
+            android:exported="false" />
+        <activity
             android:name=".newCard"
             android:exported="false" />
         <activity
