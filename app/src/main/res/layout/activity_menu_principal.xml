@@ -29,6 +29,25 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.042" />
 
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="398dp"
+            android:layout_height="585dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.428"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.582">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/lyCons"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".MenuPrincipal" />
+        </ScrollView>
+
         <ImageButton
             android:id="@+id/btnAgregarServicio"
             android:layout_width="56dp"
@@ -41,17 +60,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_input_add" />
-
-        <ScrollView
-            android:id="@+id/scroll"
-            android:layout_width="406dp"
-            android:layout_height="487dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.428"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.582"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
