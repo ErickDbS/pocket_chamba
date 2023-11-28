@@ -42,7 +42,6 @@ public class newCard extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
     ConexionBD conexionBD = ConexionBD.getInstancia();

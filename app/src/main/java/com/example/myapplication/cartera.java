@@ -17,5 +17,6 @@ public class cartera extends AppCompatActivity {
     public void metodoDePago(View view){
         Intent btnMetodoPago = new Intent(this, metodoDePago.class);
         startActivity(btnMetodoPago);
+        finish();
     }
 }

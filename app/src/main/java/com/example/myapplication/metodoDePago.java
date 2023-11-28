@@ -17,5 +17,6 @@ public class metodoDePago extends AppCompatActivity {
     public void newCard(View view){
         Intent btnNewCard = new Intent(this, newCard.class);
         startActivity(btnNewCard);
+        finish();
     }
 }

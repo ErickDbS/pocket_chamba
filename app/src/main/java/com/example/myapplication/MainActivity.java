@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -32,9 +33,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     public void MenuPrincipal(View view) {
         String nombreUsuario = numTel.getText().toString();
         String contrasenia = pass.getText().toString();
+        new IniciarSesionTask().execute();
 
         if (iniciarSesion(nombreUsuario, contrasenia)) {
             // Inicio de sesión exitoso, redirige al usuario a la pantalla principal
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 
     public void Registrarse(View view) {
 
@@ -88,6 +92,45 @@ public class MainActivity extends AppCompatActivity {
         } catch (SQLException e) {
             e.printStackTrace();
             return false; // Manejar excepciones adecuadamente
+        }
+    }
+
+
+
+    private class IniciarSesionTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            // Llama a tu método iniciarSesion aquí
+            return iniciarSesion(numTel.getText().toString(), pass.getText().toString());
+        }
+
+        @Override
+        protected void onPostExecute(Boolean resultado) {
+            if (resultado) {
+                // Inicio de sesión exitoso
+                // Realiza la redirección aquí
+
+                // Obtén el nombre de usuario
+                String nombreUsuario = obtenerNombreDeUsuario(numTel.getText().toString());
+
+                if (nombreUsuario != null) {
+                    // Crea un Intent para abrir la actividad MenuPrincipal
+                    Intent intent = new Intent(MainActivity.this, MenuPrincipal.class);
+
+                    // Pasa el nombre de usuario como extra al Intent
+                    intent.putExtra("key", nombreUsuario);
+
+                    // Inicia la actividad MenuPrincipal
+                    startActivity(intent);
+                } else {
+                    // Manejo de error si no se pudo obtener el nombre de usuario
+                    Toast.makeText(getApplicationContext(), "Error al obtener el nombre de usuario", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                // Credenciales incorrectas
+                // Muestra el Toast o realiza otra acción aquí
+                Toast.makeText(getApplicationContext(), "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

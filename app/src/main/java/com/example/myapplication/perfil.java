@@ -31,21 +31,25 @@ public class perfil extends AppCompatActivity {
     public void reportes(View view){
         Intent btnReportes = new Intent(this, reportes.class);
         startActivity(btnReportes);
+        finish();
     }
 
     public void cartera(View view){
         Intent btnCartera = new Intent(this, cartera.class);
         startActivity(btnCartera);
+        finish();
     }
 
     public void ayuda(View view){
         Intent btnAyuda = new Intent(this, ayuda.class);
         startActivity(btnAyuda);
+        finish();
     }
 
     public void cerraSeison(View view){
         Intent btnCerrarSesion = new Intent(this, MainActivity.class);
         startActivity(btnCerrarSesion);
+        finish();
     }
 
 

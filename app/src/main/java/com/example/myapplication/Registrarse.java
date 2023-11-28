@@ -64,7 +64,7 @@ public class Registrarse extends AppCompatActivity {
         });
     }
 
-    public void MainActivity(View view) {
+    public void IniciarSesion(View view) {
         Intent Registrarse = new Intent(this, MainActivity.class);
         startActivity(Registrarse);
         finish();
