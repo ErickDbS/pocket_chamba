@@ -16,6 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class agregarServicio extends AppCompatActivity {
+    ConexionBD conexionBD = ConexionBD.getInstancia();
+    Connection conexion;
 
     private EditText txtName;
     private EditText txtArea;
@@ -36,6 +38,12 @@ public class agregarServicio extends AppCompatActivity {
         txtPhone = findViewById(R.id.txtPhone);
         btnMandarSolicitud = findViewById(R.id.btnMandarSolicitud);
 
+        // Verificar si la conexión está abierta
+        if (conexion != null) {
+            Toast.makeText(getApplicationContext(), "Conexión a la base de datos establecida", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Error: La conexión a la base de datos no se pudo establecer", Toast.LENGTH_SHORT).show();
+        }
 
         // Crear un arreglo de elementos que deseas mostrar en el Spinner
         String[] elementos = {"Seleccione una opcion", "Plomeria", "Carpinteria", "Albañileria", "Mecanica"};
@@ -45,16 +53,19 @@ public class agregarServicio extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        btnMandarSolicitud.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                profecion = (String) spinner.getSelectedItem();
+                newService();
+                Regresar(view);
+            }
+        });
+
+        ConexionBD conexionBD = ConexionBD.getInstancia();
+        conexion = conexionBD.getConexion();
 
 
-         btnMandarSolicitud.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                 profecion = (String) spinner.getSelectedItem();
-                 newService();
-                 Regresar(view);
-             }
-         });
     }
 
     public void Regresar(View view){
@@ -65,26 +76,43 @@ public class agregarServicio extends AppCompatActivity {
 
     // Singleton que crea una instncia unica a la BD
 
-    ConexionBD conexionBD = ConexionBD.getInstancia();
-    Connection conexion = conexionBD.getConexion();
-    public void newService(){
+
+    public void newService() {
+        // Declarar PreparedStatement fuera del bloque try-catch
+        PreparedStatement pat = null;
+
         try {
-            PreparedStatement pat = conexion.prepareStatement("INSERT INTO ServiosRequest VALUES (?,?,?,?,?)");
-            pat.setString(1,txtName.getText().toString());
-            pat.setString(2,profecion.toString());
-            pat.setString(3,txtArea.getText().toString());
-            pat.setString(4,txtLocation.getText().toString());
-            pat.setString(5,txtPhone.getText().toString());
+            // Verificar que la conexión esté abierta
+            if (conexion != null && !conexion.isClosed()) {
+                // Excluir la columna ID en la sentencia INSERT
+                pat = conexion.prepareStatement("INSERT INTO ServiosRequest VALUES (?,?,?,?,?)");
+                pat.setString(1, txtName.getText().toString());
+                pat.setString(2, profecion);
+                pat.setString(3, txtArea.getText().toString());
+                pat.setString(4, txtLocation.getText().toString());
+                pat.setString(5, txtPhone.getText().toString());
 
-            pat.executeUpdate();
+                pat.executeUpdate();
 
-            Toast.makeText(getApplicationContext(),"PETICION MANDADA CORRECTAMENTE", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(getApplicationContext(), "PETICION MANDADA CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+            } else {
+                // Manejar el caso donde la conexión está cerrada
+                Toast.makeText(getApplicationContext(), "Error: La conexión a la base de datos está cerrada", Toast.LENGTH_SHORT).show();
+            }
         } catch (SQLException e) {
-            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
-
+            e.printStackTrace();
+            String errorMessage = e.getSQLState() + ": " + e.getMessage();
+            Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+        } finally {
+            // Cerrar PreparedStatement en el bloque finally para asegurarse de que se cierre
+            try {
+                if (pat != null) {
+                    pat.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
-
 
 }

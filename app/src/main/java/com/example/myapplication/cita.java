@@ -6,16 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class pintura_primos extends AppCompatActivity {
+public class cita extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pintura_primos);
+        setContentView(R.layout.activity_cita);
     }
 
-    public void cita(View view){
-        Intent btnCita = new Intent(this, cita.class);
-        startActivity(btnCita);
+    public void pagar(View view){
+        Intent btnPagar = new Intent(this, cartera.class);
+        startActivity(btnPagar);
     }
 }
