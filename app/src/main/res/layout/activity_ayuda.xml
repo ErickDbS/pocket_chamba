@@ -35,12 +35,12 @@
 
     <TextView
         android:id="@+id/textView16"
-        android:layout_width="67dp"
+        android:layout_width="182dp"
         android:layout_height="24dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="128dp"
-        android:layout_marginEnd="224dp"
-        android:text="Pedidos"
+        android:layout_marginEnd="108dp"
+        android:text="Metodos de pago"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,9 +48,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/imgPedidos"
         android:layout_width="64dp"
         android:layout_height="64dp"
+        android:onClick="pedidos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.118"

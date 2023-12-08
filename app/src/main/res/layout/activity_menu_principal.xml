@@ -53,7 +53,7 @@
             tools:ignore="MissingConstraints">
 
             <ListView
-                android:id="@+id/lyServicios"
+                android:id="@+id/lyPedidos"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>

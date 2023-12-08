@@ -1,13 +1,13 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,32 +36,54 @@ public class newCard extends AppCompatActivity {
         btnAñadirCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                agregarTarjeta();
-                Intent btnMetodoDePago = new Intent(newCard.this, metodoDePago.class);
-                startActivity(btnMetodoDePago);
-                finish();
+                if (camposCompletos()) {
+                    agregarTarjeta();
+                    Intent btnMetodoDePago = new Intent(newCard.this, metodoDePago.class);
+                    startActivity(btnMetodoDePago);
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Completa todos los campos antes de guardar la tarjeta", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+
+    private boolean camposCompletos() {
+        String numeroTarjeta = txtTarjeta.getText().toString();
+        String fechaTarjeta = txtFecha.getText().toString();
+        String cvv = txtCvv.getText().toString();
+        String titular = txtTitular.getText().toString();
+
+        return !numeroTarjeta.isEmpty() && !fechaTarjeta.isEmpty() && !cvv.isEmpty() && !titular.isEmpty();
     }
 
     ConexionBD conexionBD = ConexionBD.getInstancia();
     Connection conexion = conexionBD.getConexion();
 
-    public void agregarTarjeta(){
+    public void agregarTarjeta() {
+        String numeroTarjeta = txtTarjeta.getText().toString();
+        String fechaTarjeta = txtFecha.getText().toString();
+        String cvv = txtCvv.getText().toString();
+        String titular = txtTitular.getText().toString();
+
+        if (numeroTarjeta.isEmpty() || fechaTarjeta.isEmpty() || cvv.isEmpty() || titular.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Completa todos los campos correctamente", Toast.LENGTH_SHORT).show();
+            return; // Sale del método si algún campo está vacío
+        }
+
         try {
             PreparedStatement pat = conexion.prepareStatement("INSERT INTO Tarjetas VALUES (?,?,?,?)");
-            pat.setString(1,txtTarjeta.getText().toString());
-            pat.setString(2,txtFecha.getText().toString());
-            pat.setString(3,txtCvv.getText().toString());
-            pat.setString(4,txtTitular.getText().toString());
+            pat.setString(1, numeroTarjeta);
+            pat.setString(2, fechaTarjeta);
+            pat.setString(3, cvv);
+            pat.setString(4, titular);
 
             pat.executeUpdate();
 
-            Toast.makeText(getApplicationContext(),"TARJETA AGREGADA CORRECTAMENTE", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "TARJETA AGREGADA CORRECTAMENTE", Toast.LENGTH_SHORT).show();
 
         } catch (SQLException e) {
-            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 }

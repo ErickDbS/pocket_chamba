@@ -1,7 +1,5 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,12 +38,7 @@ public class agregarServicio extends AppCompatActivity {
         txtPhone = findViewById(R.id.txtPhone);
         btnMandarSolicitud = findViewById(R.id.btnMandarSolicitud);
 
-        // Verificar si la conexión está abierta
-        if (conexion != null) {
-            Toast.makeText(getApplicationContext(), "Conexión a la base de datos establecida", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "Error: La conexión a la base de datos no se pudo establecer", Toast.LENGTH_SHORT).show();
-        }
+
 
         // Crear un arreglo de elementos que deseas mostrar en el Spinner
         String[] elementos = {"Seleccione una opcion", "Plomeria", "Carpinteria", "Albañileria", "Mecanica"};
@@ -56,9 +51,13 @@ public class agregarServicio extends AppCompatActivity {
         btnMandarSolicitud.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                profecion = (String) spinner.getSelectedItem();
-                newService();
-                Regresar(view);
+                if (camposCompletos()) {
+                    profecion = (String) spinner.getSelectedItem();
+                    newService();
+                    Regresar(view);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Completa todos los campos antes de enviar la solicitud", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -66,6 +65,15 @@ public class agregarServicio extends AppCompatActivity {
         conexion = conexionBD.getConexion();
 
 
+    }
+
+    private boolean camposCompletos() {
+        String name = txtName.getText().toString();
+        String area = txtArea.getText().toString();
+        String location = txtLocation.getText().toString();
+        String phone = txtPhone.getText().toString();
+
+        return !name.isEmpty() && !area.isEmpty() && !location.isEmpty() && !phone.isEmpty();
     }
 
     public void Regresar(View view){

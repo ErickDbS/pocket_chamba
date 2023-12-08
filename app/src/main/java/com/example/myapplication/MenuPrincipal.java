@@ -1,28 +1,17 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.AdapterView;
-import android.widget.Button;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
-
-import com.google.android.material.navigation.NavigationView;
-import androidx.core.view.GravityCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,19 +23,24 @@ import java.util.List;
 
 public class MenuPrincipal extends AppCompatActivity {
 
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
     private ImageButton btnIconoUser;
-    private Button btnPromociones;
-    private ScrollView scrollView;
+
     private ConstraintLayout lyCons;
     private CoordinatorLayout lyCoordinator;
+    private String nombreServicio;
+    private String cita;
+    private int imagen;
+    private String telefono;
 
     ListView lyServicios;
     List<listServicios> lst;
 
 
     ConexionBD conexionBD = ConexionBD.getInstancia();
+
+    // Singleton que crea una instncia unica a la BD
+
+    Connection conexion = conexionBD.getConexion();
 
 
     @Override
@@ -57,10 +51,31 @@ public class MenuPrincipal extends AppCompatActivity {
 
         btnIconoUser = findViewById(R.id.btnUser);
         lyCoordinator = findViewById(R.id.lyCoordinator);
-        lyServicios = findViewById(R.id.lyServicios);
+        lyServicios = findViewById(R.id.lyPedidos);
+
+
+
 
         // Realizar la consulta a la base de datos en segundo plano
         new GetDataFromDatabase().execute();
+
+
+        lyServicios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                listServicios ly = lst.get(i);
+
+                Intent intent = new Intent(MenuPrincipal.this, DetalleServicios.class);
+                intent.putExtra("nombre", ly.getNombre());
+                intent.putExtra("imagen", ly.getImagen());
+                intent.putExtra("descripcion", ly.getDesc());
+
+                startActivity(intent);
+
+            }
+        });
+
+
     }
 
 
@@ -98,6 +113,7 @@ public class MenuPrincipal extends AppCompatActivity {
             return serviciosList;
         }
 
+
         @Override
         protected void onPostExecute(List<listServicios> serviciosList) {
             if (serviciosList != null) {
@@ -111,21 +127,6 @@ public class MenuPrincipal extends AppCompatActivity {
     }
 
 
-    public void carpinteria(View view){
-        Intent btnCarpinteria = new Intent(this, carpinteria_luna.class);
-        startActivity(btnCarpinteria);
-    }
-
-    public void plomeria(View view){
-        Intent btnPlomeria = new Intent(this, plomeria_chuy.class);
-        startActivity(btnPlomeria);
-    }
-
-    public void pintura(View view){
-        Intent btnPintura = new Intent(this, pintura_primos.class);
-        startActivity(btnPintura);
-    }
-
     public void nuevoServicio(View view){
         Intent btnAgregarServicio = new Intent(this, agregarServicio.class);
         startActivity(btnAgregarServicio);
@@ -134,10 +135,23 @@ public class MenuPrincipal extends AppCompatActivity {
     public void perfil(View view){
         Intent intent = getIntent();
         String textoRecibido = intent.getStringExtra("key");
+        telefono = intent.getStringExtra("telefono");
+
+        //Recupera el valor del activity de resumen pedido
+        nombreServicio = intent.getStringExtra("nombre");
+        cita = intent.getStringExtra("cita");
+        imagen = intent.getIntExtra("imagen",0);
 
         // Se recupera el valor enviado desde el main y se vuelve a mandar al activity de perfil para ser mostrado
         Intent btnPerfil = new Intent(this, perfil.class);
         btnPerfil.putExtra("key", textoRecibido);
+
+        //datos del resumen pedido
+        btnPerfil.putExtra("nombre",nombreServicio);
+        btnPerfil.putExtra("cita",cita);
+        btnPerfil.putExtra("imagen",imagen);
+        btnPerfil.putExtra("telefono",telefono);
+
         startActivity(btnPerfil);
     }
 }

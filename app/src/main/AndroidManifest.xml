@@ -18,17 +18,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".pedidios"
+            android:exported="false" />
+        <activity
+            android:name=".resumenPedido"
+            android:exported="false" />
+        <activity
+            android:name=".DetalleServicios"
+            android:exported="false" />
+        <activity
             android:name=".cita"
             android:exported="false" />
-        <activity
-            android:name=".pintura_primos"
-            android:exported="false" />
-        <activity
-            android:name=".plomeria_chuy"
-            android:exported="false" />
-        <activity
-            android:name=".carpinteria_luna"
-            android:exported="false" />
+
         <activity
             android:name=".newCard"
             android:exported="false" />

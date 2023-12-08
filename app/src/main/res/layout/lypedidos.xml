@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/borde_layout"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageViewPedido"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_weight="20"
+            android:padding="10dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_weight="80"
+            android:background="@drawable/borde_layout"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewNombrePedido"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="50"
+                android:layout_gravity="center|left"
+                android:textSize="24dp"
+                android:textColor="@color/white"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/textViewFecha"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="50"
+                android:layout_gravity="center|left"
+                android:textSize="24dp"
+                android:textColor="@color/white"
+                android:text="TextView" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
