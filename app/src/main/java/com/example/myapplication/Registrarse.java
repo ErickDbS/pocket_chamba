@@ -48,6 +48,7 @@ public class Registrarse extends AppCompatActivity {
         });
     }
 
+
     private boolean camposCompletos() {
         String nombre = Nombre.getText().toString();
         String apellido = Apellido.getText().toString();

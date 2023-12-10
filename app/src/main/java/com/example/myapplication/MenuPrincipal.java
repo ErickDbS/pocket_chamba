@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MenuPrincipal extends AppCompatActivity {
+public class MenuPrincipal extends AppCompatActivity  {
 
     private ImageButton btnIconoUser;
 
@@ -77,6 +77,8 @@ public class MenuPrincipal extends AppCompatActivity {
 
 
     }
+
+
 
 
 

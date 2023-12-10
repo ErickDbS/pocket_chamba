@@ -11,16 +11,16 @@ public class ConexionBD {
     private static ConexionBD instancia;
     private Connection SQL = null;
 
-
     private ConexionBD() {
         try {
-            StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
+
             Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
-            SQL= DriverManager.getConnection("jdbc:jtds:sqlserver://192.168.0.20;databaseName=Android;user=sa;password=admin;");
-
-        } catch (Exception e){
-
+            SQL = DriverManager.getConnection("jdbc:jtds:sqlserver://192.168.0.20;databaseName=Android;user=sa;password=admin;");
+            Log.d("ConexionBD", "Conexión establecida correctamente");
+        } catch (Exception e) {
+            Log.e("ConexionBD", "Error al establecer la conexión", e);
         }
     }
 
@@ -41,8 +41,8 @@ public class ConexionBD {
         return instancia;
     }
 
-
     public Connection getConexion() {
         return SQL;
     }
 }
+

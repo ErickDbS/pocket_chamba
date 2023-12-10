@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,13 +15,14 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText numTel;
     private EditText pass;
-    public String UserName;
+    private ConexionBD conexionBD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,131 +32,77 @@ public class MainActivity extends AppCompatActivity {
         // Inicializa los EditText
         numTel = findViewById(R.id.NumTel);
         pass = findViewById(R.id.pass);
+
+        // Crear una instancia de ConexionBD
+        conexionBD = ConexionBD.getInstancia();
     }
-
-
 
     public void MenuPrincipal(View view) {
         String nombreUsuario = numTel.getText().toString();
         String contrasenia = pass.getText().toString();
-        new IniciarSesionTask().execute();
 
-        if (iniciarSesion(nombreUsuario, contrasenia)) {
-            // Inicio de sesión exitoso, redirige al usuario a la pantalla principal
-            // Puedes usar Intents para realizar esta redirección.
-            String UserName = obtenerNombreDeUsuario(nombreUsuario);
-
-
-
-            Intent btnIniciarSesion = new Intent(this, MenuPrincipal.class);
-
-            // Se recupera el nombre del usuario que inicio sesion y se manda al activity MenuPrincipal
-            btnIniciarSesion.putExtra("key", UserName);
-            startActivity(btnIniciarSesion);
-        } else {
-            // Credenciales incorrectas, muestra un mensaje de error
-            Toast.makeText(getApplicationContext(), "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
-        }
-
+        // Realizar la conexión en un hilo secundario
+        new IniciarSesionTask().execute(nombreUsuario, contrasenia);
     }
 
-
-    public void Registrarse(View view) {
-
-        Intent btnRegistrarse = new Intent(this, Registrarse.class);
-        startActivity(btnRegistrarse);
-    }
-
-    // Singleton que crea una instncia unica a la BD
-    ConexionBD conexionBD = ConexionBD.getInstancia();
-    Connection conexion = conexionBD.getConexion();
-
-
-
-
-    public boolean iniciarSesion(String telefono, String contrasenia) {
-        try {
-            // Preparar una consulta para verificar las credenciales
-            String consulta = "SELECT * FROM Registros WHERE Telefono = ? AND contraseña = ?";
-            PreparedStatement pat = conexion.prepareStatement(consulta);
-            pat.setString(1, telefono);
-            pat.setString(2, contrasenia);
-
-
-            ResultSet rs = pat.executeQuery();
-
-            // Si se encuentra una fila, las credenciales son válidas
-            if (rs.next()) {
-                return true; // Inicio de sesión exitoso
-            } else {
-                return false; // Credenciales incorrectas
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false; // Manejar excepciones adecuadamente
-        }
-    }
-
-
-
-    private class IniciarSesionTask extends AsyncTask<Void, Void, Boolean> {
+    private class IniciarSesionTask extends AsyncTask<String, Void, Boolean> {
         @Override
-        protected Boolean doInBackground(Void... voids) {
-            // Llama a tu método iniciarSesion aquí
-            return iniciarSesion(numTel.getText().toString(), pass.getText().toString());
+        protected Boolean doInBackground(String... params) {
+            String nombreUsuario = params[0];
+            String contrasenia = params[1];
+
+            // Obtener la conexión de la instancia de ConexionBD
+            Connection conexion = conexionBD.getConexion();
+
+            try {
+                // Verificar si la conexión es nula antes de usarla
+                if (conexion != null) {
+                    // Verificar las credenciales del usuario
+                    return validarCredenciales(conexion, nombreUsuario, contrasenia);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return false;
         }
 
         @Override
         protected void onPostExecute(Boolean resultado) {
             if (resultado) {
-                // Inicio de sesión exitoso
-                // Realiza la redirección aquí
+                // Credenciales válidas, redirigir al usuario a la pantalla principal
+                redirigirMenuPrincipal(numTel.getText().toString());
+            } else {
+                // Credenciales incorrectas, mostrar mensaje de error
+                mostrarError("Credenciales incorrectas");
+            }
+        }
 
-                // Obtén el nombre de usuario
-                String nombreUsuario = obtenerNombreDeUsuario(numTel.getText().toString());
+        private boolean validarCredenciales(Connection conexion, String nombreUsuario, String contrasenia) throws SQLException {
+            String consulta = "SELECT * FROM Registros WHERE Telefono = ? AND contraseña = ?";
+            try (PreparedStatement pat = conexion.prepareStatement(consulta)) {
+                pat.setString(1, nombreUsuario);
+                pat.setString(2, contrasenia);
 
-                if (nombreUsuario != null) {
-                    // Crea un Intent para abrir la actividad MenuPrincipal
-                    Intent intent = new Intent(MainActivity.this, MenuPrincipal.class);
-
-                    // Pasa el nombre de usuario como extra al Intent
-                    intent.putExtra("key", nombreUsuario);
-
-                    // Inicia la actividad MenuPrincipal
-                    startActivity(intent);
-                } else {
-                    // Manejo de error si no se pudo obtener el nombre de usuario
-                    Toast.makeText(getApplicationContext(), "Error al obtener el nombre de usuario", Toast.LENGTH_SHORT).show();
+                try (ResultSet rs = pat.executeQuery()) {
+                    return rs.next(); // Devuelve true si encuentra al menos una fila (credenciales válidas)
                 }
-            } else {
-                // Credenciales incorrectas
-                // Muestra el Toast o realiza otra acción aquí
-                Toast.makeText(getApplicationContext(), "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
             }
+        }
+
+        private void redirigirMenuPrincipal(String nombreUsuario) {
+            // Inicio de sesión exitoso, redirigir al usuario a la pantalla principal
+            Intent intent = new Intent(MainActivity.this, MenuPrincipal.class);
+            intent.putExtra("key", nombreUsuario);
+            startActivity(intent);
+        }
+
+        private void mostrarError(String mensaje) {
+            Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_SHORT).show();
         }
     }
 
-    private String obtenerNombreDeUsuario(String telefono) {
-        try {
-            // Preparar una consulta para obtener el nombre de usuario
-            String consulta = "SELECT Nombre FROM Registros WHERE Telefono = ?";
-            PreparedStatement pat = conexion.prepareStatement(consulta);
-            pat.setString(1, telefono);
-
-            ResultSet rs = pat.executeQuery();
-
-            // Si se encuentra una fila, devuelve el nombre de usuario
-            if (rs.next()) {
-                return rs.getString("Nombre");
-            } else {
-                return null;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public void Registrarse(View view) {
+        Intent btnRegistrarse = new Intent(this, Registrarse.class);
+        startActivity(btnRegistrarse);
     }
-
-
-
 }

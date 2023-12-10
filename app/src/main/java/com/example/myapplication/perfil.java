@@ -16,7 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class perfil extends AppCompatActivity {
+public class perfil extends AppCompatActivity  {
 
     private TextView txtUserName;
     String textoRecibido;
@@ -50,6 +50,8 @@ public class perfil extends AppCompatActivity {
 
 
     }
+
+
 
     private class ObtenerNombreUsuarioTask extends AsyncTask<Void, Void, String> {
         @Override

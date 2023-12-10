@@ -48,6 +48,8 @@ public class newCard extends AppCompatActivity {
         });
     }
 
+
+
     private boolean camposCompletos() {
         String numeroTarjeta = txtTarjeta.getText().toString();
         String fechaTarjeta = txtFecha.getText().toString();
