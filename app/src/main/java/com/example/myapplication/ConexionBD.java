@@ -17,7 +17,7 @@ public class ConexionBD {
             StrictMode.setThreadPolicy(policy);
 
             Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
-            SQL = DriverManager.getConnection("jdbc:jtds:sqlserver://192.168.0.20;databaseName=Android;user=sa;password=admin;");
+            SQL = DriverManager.getConnection("jdbc:jtds:sqlserver://192.168.0.16;databaseName=Android;user=sa;password=admin;");
             Log.d("ConexionBD", "Conexión establecida correctamente");
         } catch (Exception e) {
             Log.e("ConexionBD", "Error al establecer la conexión", e);

@@ -31,7 +31,7 @@
             android:id="@+id/spnTipoReporte"
             android:layout_width="301dp"
             android:layout_height="23dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="72dp"
             android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +61,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.758" />
+
+        <EditText
+            android:id="@+id/txtDescripcion"
+            android:layout_width="377dp"
+            android:layout_height="138dp"
+            android:background="#FFFFFF"
+            android:gravity="top|start"
+            android:hint="Descripcion del servicio"
+            android:inputType="textMultiLine"
+            android:lines="5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.559" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

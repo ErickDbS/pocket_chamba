@@ -7,14 +7,23 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class DetalleServicios extends AppCompatActivity {
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class DetalleServicios extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
 
     private ImageView imgServicio;
     private TextView txtNombre;
     private TextView  txtDesc;
     private Button btnContratar;
+    GoogleMap mMap;
 
 
     @Override
@@ -35,6 +44,10 @@ public class DetalleServicios extends AppCompatActivity {
         txtNombre.setText(nombre);
         txtDesc.setText(descripcion);
         imgServicio.setImageResource(imagenId);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
+        mapFragment.getMapAsync(this);
+
     }
 
     public void cita(View view){
@@ -48,4 +61,25 @@ public class DetalleServicios extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+        this.mMap.setOnMapClickListener(this);
+        this.mMap.setOnMapLongClickListener(this);
+
+        LatLng mochis = new LatLng(25.7609803,-108.985453217);
+        mMap.addMarker(new MarkerOptions().position(mochis).title("Los Mochis"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mochis, 15)); // Ajusta el nivel de zoom según sea necesario
+
+    }
+
+    @Override
+    public void onMapClick(@NonNull LatLng latLng) {
+
+    }
+
+    @Override
+    public void onMapLongClick(@NonNull LatLng latLng) {
+
+    }
 }
