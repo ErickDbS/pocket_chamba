@@ -42,7 +42,7 @@ public class reportes extends AppCompatActivity {
 
 
     public void newService() {
-        // Declarar PreparedStatement fuera del bloque try-catch
+        // Declarar PreparedStatement fuera del bloque try-catc
         PreparedStatement pat = null;
 
         try {
